@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API - EXEMPLOS DE UTILIZAÇÃO &#8212; FlaskApp 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/scrolls.css" />
+    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/theme_extras.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ALGORITMOS" href="algorithms.html" />
+    <link rel="prev" title="INTRODUÇÃO" href="introduction.html" /> 
+  </head><body>
+    <div id="content">
+      <div class="header">
+        <h1 class="heading"><a href="index.html"
+          title="back to the documentation overview"><span>API - EXEMPLOS DE UTILIZAÇÃO</span></a></h1>
+      </div>
+      <div class="relnav" role="navigation" aria-label="related navigation">
+        <a href="introduction.html">&laquo; INTRODUÇÃO</a> |
+        <a href="#">API - EXEMPLOS DE UTILIZAÇÃO</a>
+        | <a href="algorithms.html">ALGORITMOS &raquo;</a>
+      </div>
+      <div id="contentwrapper">
+        <div id="toc" role="navigation" aria-label="table of contents navigation">
+          <h3>Table of Contents</h3>
+          <ul>
+<li><a class="reference internal" href="#">API - EXEMPLOS DE UTILIZAÇÃO</a><ul>
+<li><a class="reference internal" href="#qe-quadratic-equation">QE - Quadratic Equation</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div role="main">
+        
+  <div class="section" id="api-exemplos-de-utilizacao">
+<h1>API - EXEMPLOS DE UTILIZAÇÃO<a class="headerlink" href="#api-exemplos-de-utilizacao" title="Permalink to this headline">¶</a></h1>
+<p>Este documento tem por objetivo documentar o código da API implementada
+e como deve ser realizada a sua utilização.</p>
+<div class="section" id="qe-quadratic-equation">
+<h2>QE - Quadratic Equation<a class="headerlink" href="#qe-quadratic-equation" title="Permalink to this headline">¶</a></h2>
+<p>No módulo do Equation existem uma única chamada:
+<cite>localhost:5000/predict_equation</cite> .</p>
+<p><em>1 - Método POST:</em></p>
+<p>A requisição abaixo efetua a predição.</p>
+<p><strong>Requisição:</strong> localhost:5000/predict_equation</p>
+<p><strong>Exemplo de Entrada: (JSON)</strong></p>
+<p>A entrada é um json com os parâmetros a, b, c</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;a&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;b&quot;</span><span class="p">:</span> <span class="mi">-3</span><span class="p">,</span>
+    <span class="nt">&quot;c&quot;</span><span class="p">:</span> <span class="mi">2</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Exemplo de Saída: (JSON)</strong></p>
+<p>O retorno é um json com as raízes da equação quadrática</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;x1&quot;</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span>
+    <span class="nt">&quot;x2&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Rodolfo Lorbieski.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.1.
+    </div>
+  </body>
+</html>

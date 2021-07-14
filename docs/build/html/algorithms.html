@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ALGORITMOS &#8212; FlaskApp 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/scrolls.css" />
+    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/theme_extras.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="API - EXEMPLOS DE UTILIZAÇÃO" href="examples.html" /> 
+  </head><body>
+    <div id="content">
+      <div class="header">
+        <h1 class="heading"><a href="index.html"
+          title="back to the documentation overview"><span>ALGORITMOS</span></a></h1>
+      </div>
+      <div class="relnav" role="navigation" aria-label="related navigation">
+        <a href="examples.html">&laquo; API - EXEMPLOS DE UTILIZAÇÃO</a> |
+        <a href="#">ALGORITMOS</a>
+      </div>
+      <div id="contentwrapper">
+        <div id="toc" role="navigation" aria-label="table of contents navigation">
+          <h3>Table of Contents</h3>
+          <ul>
+<li><a class="reference internal" href="#">ALGORITMOS</a><ul>
+<li><a class="reference internal" href="#qe-quadratic-equation">QE - Quadratic Equation</a></li>
+<li><a class="reference internal" href="#servicos-auxiliares">Serviços Auxiliares</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div role="main">
+        
+  <div class="section" id="algoritmos">
+<h1>ALGORITMOS<a class="headerlink" href="#algoritmos" title="Permalink to this headline">¶</a></h1>
+<p>Esta parte do documento tem por objetivo documentar o restante do código
+que é utilizado internamente na API implementada. Esses módulos auxiliares
+estão dentro da pasta <cite>algorithms</cite> e <cite>repository</cite>.</p>
+<div class="section" id="qe-quadratic-equation">
+<h2>QE - Quadratic Equation<a class="headerlink" href="#qe-quadratic-equation" title="Permalink to this headline">¶</a></h2>
+<p><strong>equation_class</strong></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="algorithms.equation.equation.Equation">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">algorithms.equation.equation.</span></span><span class="sig-name descname"><span class="pre">Equation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.equation.equation.Equation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>equation_predictor</strong></p>
+<span class="target" id="module-algorithms.equation.equation_predictor"></span><dl class="py function">
+<dt class="sig sig-object py" id="algorithms.equation.equation_predictor.calc_equation">
+<span class="sig-prename descclassname"><span class="pre">algorithms.equation.equation_predictor.</span></span><span class="sig-name descname"><span class="pre">calc_equation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">equacao</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.equation.equation_predictor.calc_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate roots of quadratic equation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>equacao</strong> – object equation</p>
+</dd>
+<dt class="field-even">Return result</dt>
+<dd class="field-even"><p>roots of quadratic equation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.equation.equation_predictor.predictor_equation">
+<span class="sig-prename descclassname"><span class="pre">algorithms.equation.equation_predictor.</span></span><span class="sig-name descname"><span class="pre">predictor_equation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.equation.equation_predictor.predictor_equation" title="Permalink to this definition">¶</a></dt>
+<dd><p>return prediction of json</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json</strong> – json with all items</p>
+</dd>
+<dt class="field-even">Return result</dt>
+<dd class="field-even"><p>equation and roots of quadratic equation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.equation.equation_predictor.round_up">
+<span class="sig-prename descclassname"><span class="pre">algorithms.equation.equation_predictor.</span></span><span class="sig-name descname"><span class="pre">round_up</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.equation.equation_predictor.round_up" title="Permalink to this definition">¶</a></dt>
+<dd><p>function to around</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – number to around</p></li>
+<li><p><strong>decimals</strong> – total of decimals</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return result</dt>
+<dd class="field-even"><p>rounded numeric value</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="servicos-auxiliares">
+<h2>Serviços Auxiliares<a class="headerlink" href="#servicos-auxiliares" title="Permalink to this headline">¶</a></h2>
+<p><strong>repository_service</strong></p>
+<span class="target" id="module-repository.repository_service"></span><dl class="py function">
+<dt class="sig sig-object py" id="repository.repository_service.get_df_from_csv">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">get_df_from_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.get_df_from_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns filename as dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – filename, example: name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dataframe in case of success or None in case of exception</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="repository.repository_service.get_df_from_excel">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">get_df_from_excel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.get_df_from_excel" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns filename as dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – filename, example: name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dataframe in case of success or None in case of exception</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="repository.repository_service.load_model">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>load model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – name to load</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>model in case of success or None in case of fail</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="repository.repository_service.read_dataframe_parquet">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">read_dataframe_parquet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.read_dataframe_parquet" title="Permalink to this definition">¶</a></dt>
+<dd><p>read dataframe parquet</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – name to load</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>model in case of success or None in case of fail</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="repository.repository_service.save_model">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.save_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>save model to directory</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – model to save</p></li>
+<li><p><strong>name</strong> – name to save</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True in case of success or False in case of Fail</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Rodolfo Lorbieski.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.1.
+    </div>
+  </body>
+</html>

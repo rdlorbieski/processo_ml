@@ -1,0 +1,195 @@
+API
+===
+
+Este documento tem por objetivo documentar o código da API implementada
+e como deve ser realizada a sua utilização. O módulo `app.py` em Python
+contém todas as interfaces das APIs implementadas.
+
+ISG - Índice de Satisfação Geral
+--------------------------------
+
+No módulo do ISG existem duas possíveis chamadas que são:
+`localhost:5000/train_isg` e `localhost:5000/predict_isg`.
+
+O função abaixo efetua o treinamento.
+
+.. code-block:: python
+
+    @app.route('/train_isg', methods=['GET'])
+    def train_isg():
+        ...
+
+A função abaixo efetua a predição.
+
+.. code-block:: python
+
+    @app.route('/predict_isg', methods=['POST'])
+    def predict_isg():
+        ...
+
+IRD - Índice de Risco de Devolução
+----------------------------------
+
+No módulo do IRD existem duas possíveis chamadas que são:
+`localhost:5000/train_ird` e `localhost:5000/predict_ird`.
+
+O função abaixo efetua o treinamento.
+
+.. code-block:: python
+
+    @app.route('/train_ird', methods=['GET'])
+    def train_ird():
+        ...
+
+A função abaixo efetua a predição.
+
+.. code-block:: python
+
+    @app.route('/predict_ird', methods=['POST'])
+    def predict_ird():
+        ...
+
+
+IRA - Índice de Responsabilidade do Agente
+------------------------------------------
+
+No módulo do IRA existem duas possíveis chamadas que são:
+`localhost:5000/train_ira` e `localhost:5000/predict_ira`.
+
+O função abaixo efetua o treinamento.
+
+.. code-block:: python
+
+    @app.route('/train_ira', methods=['GET'])
+    def train_ira():
+        ...
+
+A função abaixo efetua a predição.
+
+.. code-block:: python
+
+    @app.route('/predict_ira', methods=['POST'])
+    def predict_ira():
+        ...
+
+IDP - Índice de Desvio do Processo
+----------------------------------
+
+The number of occurrences that happen each day according to each Transport Company.
+
+.. code-block:: python
+
+    @app.route('/idp_odp', methods=['GET'])
+    def idp_odp():
+        ...
+
+The number of occurrences that happen per day of the week according to each Transport Company.
+
+.. code-block:: python
+
+    @app.route('/idp_ods', methods=['GET'])
+    def idp_ods():
+        ...
+
+Days of the week with the more occurrences.
+
+.. code-block:: python
+
+    @app.route('/idp_dso', methods=['GET'])
+    def idp_dso():
+        ...
+
+ Transport Company with more Occurrences.
+
+.. code-block:: python
+
+    @app.route('/idp_mot', methods=['GET'])
+    def idp_mot():
+        ...
+
+How often a given occurrence occurs per Transport Company.
+
+.. code-block:: python
+
+    @app.route('/idp_fot', methods=['GET'])
+    def idp_fot():
+        ...
+
+Common occurrences.
+
+.. code-block:: python
+
+    @app.route('/idp_omc', methods=['GET'])
+    def idp_omc():
+        ...
+
+The pattern of occurrence that is recorded by day of the week.
+
+.. code-block:: python
+
+    @app.route('/idp_opds', methods=['GET'])
+    def idp_opds():
+        ...
+
+PV-CDC - Predição de Volume no CDC
+----------------------------------
+
+A função abaixo efetua o treinamento.
+
+.. code-block:: python
+
+    @app.route('/train_cdc', methods=['GET'])
+    def train_cdc():
+        ...
+
+A função abaixo efetua a predição.
+
+.. code-block:: python
+
+    @app.route('/predict_cdc', methods=['POST'])
+    def predict_cdc():
+        ...
+
+SCORE - Score da Transportadora
+-------------------------------
+
+PPF - Predição no Preço de Frete
+--------------------------------
+
+PDP - Predição de Prazo
+-----------------------
+
+ETI - Estimativa de Tendências nos Indicadores
+----------------------------------------------
+
+A função abaixo efetua o cálculo do ETI para todos os indicadores ISG, IRD e IRA.
+
+.. code-block:: python
+
+    @app.route('/eti_all', methods=['POST'])
+    def eti_all():
+        ...
+
+A função abaixo efetua o cálculo do ETI para o indicador ISG.
+
+.. code-block:: python
+
+    @app.route('/eti_isg', methods=['POST'])
+    def eti_isg():
+        ...
+
+A função abaixo efetua o cálculo do ETI para o indicador IRD.
+
+.. code-block:: python
+
+    @app.route('/eti_ird', methods=['POST'])
+    def eti_ird():
+        ...
+
+A função abaixo efetua o cálculo do ETI para o indicador IRA.
+
+.. code-block:: python
+
+    @app.route('/eti_ira', methods=['POST'])
+    def eti_ira():
+        ...

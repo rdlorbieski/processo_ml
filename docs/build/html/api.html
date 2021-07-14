@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>API &#8212; SAID 1.2.1 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/scrolls.css" />
+    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/theme_extras.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div id="content">
+      <div class="header">
+        <h1 class="heading"><a href="index.html"
+          title="back to the documentation overview"><span>API</span></a></h1>
+      </div>
+      <div class="relnav" role="navigation" aria-label="related navigation">
+        <a href="#">API</a>
+      </div>
+      <div id="contentwrapper">
+        <div id="toc" role="navigation" aria-label="table of contents navigation">
+          <h3>Table of Contents</h3>
+          <ul>
+<li><a class="reference internal" href="#">API</a><ul>
+<li><a class="reference internal" href="#isg-indice-de-satisfacao-geral">ISG - Índice de Satisfação Geral</a></li>
+<li><a class="reference internal" href="#ird-indice-de-risco-de-devolucao">IRD - Índice de Risco de Devolução</a></li>
+<li><a class="reference internal" href="#ira-indice-de-responsabilidade-do-agente">IRA - Índice de Responsabilidade do Agente</a></li>
+<li><a class="reference internal" href="#idp-indice-de-desvio-do-processo">IDP - Índice de Desvio do Processo</a></li>
+<li><a class="reference internal" href="#pv-cdc-predicao-de-volume-no-cdc">PV-CDC - Predição de Volume no CDC</a></li>
+<li><a class="reference internal" href="#score-score-da-transportadora">SCORE - Score da Transportadora</a></li>
+<li><a class="reference internal" href="#ppf-predicao-no-preco-de-frete">PPF - Predição no Preço de Frete</a></li>
+<li><a class="reference internal" href="#pdp-predicao-de-prazo">PDP - Predição de Prazo</a></li>
+<li><a class="reference internal" href="#eti-estimativa-de-tendencias-nos-indicadores">ETI - Estimativa de Tendências nos Indicadores</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div role="main">
+        
+  <section id="api">
+<h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<p>Este documento tem por objetivo documentar o código da API implementada
+e como deve ser realizada a sua utilização. O módulo <cite>app.py</cite> em Python
+contém todas as interfaces das APIs implementadas.</p>
+<section id="isg-indice-de-satisfacao-geral">
+<h2>ISG - Índice de Satisfação Geral<a class="headerlink" href="#isg-indice-de-satisfacao-geral" title="Permalink to this headline">¶</a></h2>
+<p>No módulo do ISG existem duas possíveis chamadas que são:
+<cite>localhost:5000/train_isg</cite> e <cite>localhost:5000/predict_isg</cite>.</p>
+<p>O função abaixo efetua o treinamento.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/train_isg&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">train_isg</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>A função abaixo efetua a predição.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/predict_isg&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">predict_isg</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+<section id="ird-indice-de-risco-de-devolucao">
+<h2>IRD - Índice de Risco de Devolução<a class="headerlink" href="#ird-indice-de-risco-de-devolucao" title="Permalink to this headline">¶</a></h2>
+<p>No módulo do IRD existem duas possíveis chamadas que são:
+<cite>localhost:5000/train_ird</cite> e <cite>localhost:5000/predict_ird</cite>.</p>
+<p>O função abaixo efetua o treinamento.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/train_ird&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">train_ird</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>A função abaixo efetua a predição.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/predict_ird&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">predict_ird</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+<section id="ira-indice-de-responsabilidade-do-agente">
+<h2>IRA - Índice de Responsabilidade do Agente<a class="headerlink" href="#ira-indice-de-responsabilidade-do-agente" title="Permalink to this headline">¶</a></h2>
+<p>No módulo do IRA existem duas possíveis chamadas que são:
+<cite>localhost:5000/train_ira</cite> e <cite>localhost:5000/predict_ira</cite>.</p>
+<p>O função abaixo efetua o treinamento.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/train_ira&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">train_ira</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>A função abaixo efetua a predição.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/predict_ira&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">predict_ira</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+<section id="idp-indice-de-desvio-do-processo">
+<h2>IDP - Índice de Desvio do Processo<a class="headerlink" href="#idp-indice-de-desvio-do-processo" title="Permalink to this headline">¶</a></h2>
+<p>The number of occurrences that happen each day according to each Transport Company.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/idp_odp&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">idp_odp</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>The number of occurrences that happen per day of the week according to each Transport Company.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/idp_ods&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">idp_ods</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Days of the week with the more occurrences.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>   <span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/idp_dso&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+   <span class="k">def</span> <span class="nf">idp_dso</span><span class="p">():</span>
+       <span class="o">...</span>
+
+<span class="n">Transport</span> <span class="n">Company</span> <span class="k">with</span> <span class="n">more</span> <span class="n">Occurrences</span><span class="o">.</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/idp_mot&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">idp_mot</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>How often a given occurrence occurs per Transport Company.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/idp_fot&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">idp_fot</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Common occurrences.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/idp_omc&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">idp_omc</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>The pattern of occurrence that is recorded by day of the week.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/idp_opds&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">idp_opds</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+<section id="pv-cdc-predicao-de-volume-no-cdc">
+<h2>PV-CDC - Predição de Volume no CDC<a class="headerlink" href="#pv-cdc-predicao-de-volume-no-cdc" title="Permalink to this headline">¶</a></h2>
+<p>A função abaixo efetua o treinamento.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/train_cdc&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">train_cdc</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>A função abaixo efetua a predição.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/predict_cdc&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">predict_cdc</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+<section id="score-score-da-transportadora">
+<h2>SCORE - Score da Transportadora<a class="headerlink" href="#score-score-da-transportadora" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="ppf-predicao-no-preco-de-frete">
+<h2>PPF - Predição no Preço de Frete<a class="headerlink" href="#ppf-predicao-no-preco-de-frete" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="pdp-predicao-de-prazo">
+<h2>PDP - Predição de Prazo<a class="headerlink" href="#pdp-predicao-de-prazo" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="eti-estimativa-de-tendencias-nos-indicadores">
+<h2>ETI - Estimativa de Tendências nos Indicadores<a class="headerlink" href="#eti-estimativa-de-tendencias-nos-indicadores" title="Permalink to this headline">¶</a></h2>
+<p>A função abaixo efetua o cálculo do ETI para todos os indicadores ISG, IRD e IRA.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/eti_all&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">eti_all</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>A função abaixo efetua o cálculo do ETI para o indicador ISG.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/eti_isg&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">eti_isg</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>A função abaixo efetua o cálculo do ETI para o indicador IRD.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/eti_ird&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">eti_ird</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>A função abaixo efetua o cálculo do ETI para o indicador IRA.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/eti_ira&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">eti_ira</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, ISI-SE.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>
