@@ -13,6 +13,11 @@ import pandas as pd
 import numpy as np
 
 def normalize_dataframe(df):
+    """
+    function that normalize all df, except target
+
+    :param df: dataframe to normalize
+    """
     df_bkp = df.copy()
     normalized_df = (df-df.min())/(df.max()-df.min())
     normalized_df['target'] = df_bkp['target']
@@ -20,15 +25,27 @@ def normalize_dataframe(df):
 
 
 def get_config_ensemble_nn():
+    """
+    function with configuration to ensemble of neural network
+
+    """
     clf = BaggingClassifier(MLPClassifier(),max_samples=0.5, max_features=0.5)
     return clf
 
 def get_config_ensemble_tree():
+    """
+    function with configuration to ensemble of tree
+
+    """
     clf = ExtraTreesClassifier(max_depth=5)
     return clf
 
 
 def get_config_ensemble_lazy():
+    """
+    function with configuration to ensemble of lazy
+
+    """
     knn1 = KNeighborsClassifier(n_neighbors=3, weights="uniform", p=1)  # p=1 manhattan_distance
     knn2 = KNeighborsClassifier(n_neighbors=3, weights="uniform", p=2)  # p=1 manhattan_distance
     knn3 = KNeighborsClassifier(n_neighbors=5, weights="distance", p=1)  # p=2 euclidean_distance
@@ -49,18 +66,36 @@ def get_config_ensemble_lazy():
 
 
 def get_config_ensemble_svm():
+    """
+    function with configuration to ensemble of svm
+
+    """
     svm1 = svm.SVC(kernel='linear', C=1.0, probability=True)
     clf = AdaBoostClassifier(n_estimators=20, base_estimator=svm1, algorithm='SAMME')
     return clf
 
 
 
-def generate_prediction(x, y, x_test, model):
-    model = model.fit(x, y)
+def generate_prediction(x_train, y_train, x_test, model):
+    """
+    function that generates prediction
+
+    :param x_train: features of train
+    :param y_train: target of train
+    :param x_test: features of test
+    :param model: model used
+    """
+    model = model.fit(x_train, y_train)
     y_pred = model.predict(x_test)
     return y_pred
 
 def avaliate_level_0(df_train_clean_normalized, df_test_real_normalized):
+    """
+    This part is responsible for evaluating the quality of base classifiers (or level 0)
+
+    :param df_train_clean_normalized: dataframe of train normalized without outliers
+    :param df_test_real_normalized: dataframe of test normalized
+    """
     performance_level_0 = {}
     names = ['knn1', 'knn2', 'knn3', 'knn4', 'rf1', 'dt1', 'etc', 'svm1', 'svm2', 'svm3']
     print("============================= LAZY =============================")
@@ -121,6 +156,12 @@ def avaliate_level_0(df_train_clean_normalized, df_test_real_normalized):
 
 
 def avaliate_level_1(df_train_clean_normalized, df_test_real_normalized):
+    """
+    This part is responsible for evaluating the quality of ensemble classifiers level 1
+
+    :param df_train_clean_normalized: dataframe of train normalized without outliers
+    :param df_test_real_normalized: dataframe of test normalized
+    """
     performance_level_1 = {}
     x, y = pt.splitFeaturesTarget(df_train_clean_normalized)
     x_true, y_true = pt.splitFeaturesTarget(df_test_real_normalized)
@@ -147,6 +188,12 @@ def avaliate_level_1(df_train_clean_normalized, df_test_real_normalized):
 
 
 def avaliate_level_2(df_train_clean_normalized, df_test_real_normalized):
+    """
+    This part is responsible for evaluating the quality of stacking (ensemble of ensembles - level 2)
+
+    :param df_train_clean_normalized: dataframe of train normalized without outliers
+    :param df_test_real_normalized: dataframe of test normalized
+    """
     x, y = pt.splitFeaturesTarget(df_train_clean_normalized)
     x_true, y_true = pt.splitFeaturesTarget(df_test_real_normalized)
 
@@ -169,7 +216,11 @@ def avaliate_level_2(df_train_clean_normalized, df_test_real_normalized):
     return stack_model_svm, accuracy, auc, cm
 
 def predictor_row(json):
+    """
+    Function generated to be able to predict a single specific line of the dataset
 
+    :param json: json of rest api
+    """
 
     c1 = json["c1"]
     c2 = json["c2"]
@@ -201,3 +252,50 @@ def predictor_row(json):
     stacking = rs.load_model("models_to_evaluate", "level_2", "stacking_ensemble_of_ensemble")
     target = stacking.predict(row)[0]
     return target
+
+
+def create_and_save_models(df_train_clean_normalized, df_test_real_normalized):
+    """
+    Function to create and save models
+
+    :param df_train_clean_normalized: dataframe of train normalized without outliers
+    :param df_test_real_normalized: dataframe of test normalized
+    """
+
+    acc_2, min = [0, 0.7]
+    while acc_2 < min:
+        print(".")
+        stacking, acc_2, auc_level_2, matrix_confusion = avaliate_level_2(df_train_clean_normalized,
+                                                                              df_test_real_normalized)
+        if acc_2 >= min:
+            # check performance of base classifiers (level 0):
+            print("======================= check performance and evaluating level 0 ")
+            models_levels_0, level_0_performance = avaliate_level_0(df_train_clean_normalized,
+                                                                        df_test_real_normalized)
+            for key, value in level_0_performance.items():
+                if value[0] >= 0.5:
+                    print(key + " acc = " + str(value[0]) + " auc = " + str(value[1]))
+
+            names_level_0 = ["knn1", "knn2", "knn3", "knn4", "svm1", "etc", "mlp"]
+            for i in range(len(names_level_0)):
+                rs.save_model(models_levels_0[i], "models_to_evaluate", "level_0", names_level_0[i])
+
+            print("======================= evaluating level 1 ")
+            models_levels_1, level_1_performance = avaliate_level_1(df_train_clean_normalized,
+                                                                        df_test_real_normalized)
+
+            for key, value in level_1_performance.items():
+                print(key + " acc = " + str(value[0]) + " auc = " + str(value[1]))
+
+            names_level_1 = ["ensemble_lazy", "ensemble_tree", "ensemble_nn", "ensemble_svm"]
+            for i in range(len(names_level_1)):
+                rs.save_model(models_levels_1[i], "models_to_evaluate", "level_1", names_level_1[i])
+
+            print("======================= evaluating level 2")
+            if acc_2>0.73:
+                rs.save_model(stacking, "models_to_evaluate", "level_2", "stacking_ensemble_of_ensemble")
+            print("acc = ", acc_2, "auc = ", auc_level_2)
+
+            break
+
+

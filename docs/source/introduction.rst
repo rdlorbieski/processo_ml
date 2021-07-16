@@ -1,18 +1,16 @@
 INTRODUÇÃO
 ==========
 
-O Projeto SAID (Sistema de Análise Inteligente de Dados) busca realizar serviços
-de análises de dados. O SAID foi implementado como uma aplicação flask em Python
-e utiliza em sua comunicação API Rest via JSON.
+O Projeto MLE (Machine Learning Exam) busca realizar a solução de um desafio
+proposto pelo senai em uma exame. O MLE foi implementado como uma aplicação
+flask em Python e utiliza em sua comunicação API Rest via JSON.
 
-O projeto SAID possui a seguinte estrutura geral de pastas:
+O projeto MLE possui a seguinte estrutura geral de pastas:
 
-.. image:: ../images/project-structure.png
+.. image:: ../images/project-structure.jpg
    :align: center
 
-Dentro da pasta `algorithms` temos os principais algoritmos desenvolvidos. Cada um
-dos módulos desenvolvidos foram colocados em uma pasta distinta de forma a facilitar
-a compreensão. Os módulos desenvolvidos são: CDC, ETI, IDP, IRA, IRD, ISG, PPF e SGT.
+Dentro da pasta `algorithms` temos os principais algoritmos desenvolvidos.
 
 A pasta `datasets` contém alguns arquivos utilizados no treinamento e avaliação dos
 modelos.

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>ALGORITMOS &#8212; FlaskApp 1.2.1 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -34,7 +35,7 @@
           <h3>Table of Contents</h3>
           <ul>
 <li><a class="reference internal" href="#">ALGORITMOS</a><ul>
-<li><a class="reference internal" href="#qe-quadratic-equation">QE - Quadratic Equation</a></li>
+<li><a class="reference internal" href="#api-exam-ml">API Exam ML</a></li>
 <li><a class="reference internal" href="#servicos-auxiliares">Serviços Auxiliares</a></li>
 </ul>
 </li>
@@ -43,51 +44,79 @@
         </div>
         <div role="main">
         
-  <div class="section" id="algoritmos">
+  <section id="algoritmos">
 <h1>ALGORITMOS<a class="headerlink" href="#algoritmos" title="Permalink to this headline">¶</a></h1>
 <p>Esta parte do documento tem por objetivo documentar o restante do código
 que é utilizado internamente na API implementada. Esses módulos auxiliares
 estão dentro da pasta <cite>algorithms</cite> e <cite>repository</cite>.</p>
-<div class="section" id="qe-quadratic-equation">
-<h2>QE - Quadratic Equation<a class="headerlink" href="#qe-quadratic-equation" title="Permalink to this headline">¶</a></h2>
-<p><strong>equation_class</strong></p>
-<dl class="py class">
-<dt class="sig sig-object py" id="algorithms.equation.equation.Equation">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">algorithms.equation.equation.</span></span><span class="sig-name descname"><span class="pre">Equation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.equation.equation.Equation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p><strong>equation_predictor</strong></p>
-<span class="target" id="module-algorithms.equation.equation_predictor"></span><dl class="py function">
-<dt class="sig sig-object py" id="algorithms.equation.equation_predictor.calc_equation">
-<span class="sig-prename descclassname"><span class="pre">algorithms.equation.equation_predictor.</span></span><span class="sig-name descname"><span class="pre">calc_equation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">equacao</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.equation.equation_predictor.calc_equation" title="Permalink to this definition">¶</a></dt>
-<dd><p>calculate roots of quadratic equation</p>
+<section id="api-exam-ml">
+<h2>API Exam ML<a class="headerlink" href="#api-exam-ml" title="Permalink to this headline">¶</a></h2>
+<p><strong>predictor_train</strong></p>
+<span class="target" id="module-algorithms.challenge_senai.predictor_train"></span><dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_train.concatXY">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_train.</span></span><span class="sig-name descname"><span class="pre">concatXY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_train.concatXY" title="Permalink to this definition">¶</a></dt>
+<dd><p>function that merge features with target</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>equacao</strong> – object equation</p>
-</dd>
-<dt class="field-even">Return result</dt>
-<dd class="field-even"><p>roots of quadratic equation</p>
+<dd class="field-odd"><p><strong>df</strong> – dataframe used</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="algorithms.equation.equation_predictor.predictor_equation">
-<span class="sig-prename descclassname"><span class="pre">algorithms.equation.equation_predictor.</span></span><span class="sig-name descname"><span class="pre">predictor_equation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.equation.equation_predictor.predictor_equation" title="Permalink to this definition">¶</a></dt>
-<dd><p>return prediction of json</p>
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_train.create_model_to_predict_y_train">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_train.</span></span><span class="sig-name descname"><span class="pre">create_model_to_predict_y_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_test_train</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_train.create_model_to_predict_y_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>function that creates a model to predict y_train</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>json</strong> – json with all items</p>
-</dd>
-<dt class="field-even">Return result</dt>
-<dd class="field-even"><p>equation and roots of quadratic equation</p>
+<dd class="field-odd"><p><strong>df_test_train</strong> – dataframe used to create a model responsible for predicting y_train</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="algorithms.equation.equation_predictor.round_up">
-<span class="sig-prename descclassname"><span class="pre">algorithms.equation.equation_predictor.</span></span><span class="sig-name descname"><span class="pre">round_up</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.equation.equation_predictor.round_up" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_train.create_test_dataframes_to_train_and_validate">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_train.</span></span><span class="sig-name descname"><span class="pre">create_test_dataframes_to_train_and_validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_train.create_test_dataframes_to_train_and_validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>function that separates the test set into a dataset to discover y_train and another to do the actual validation of
+the solution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return df_trainer_test</dt>
+<dd class="field-odd"><p>dataframe to generate the y_train</p>
+</dd>
+<dt class="field-even">Return df_test_validation</dt>
+<dd class="field-even"><p>dataframe to test the solution</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_train.predict_y_train">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_train.</span></span><span class="sig-name descname"><span class="pre">predict_y_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_train</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_train.predict_y_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>function that predict y_train</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x_train</strong> – features of train</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_train.remove_outliers">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_train.</span></span><span class="sig-name descname"><span class="pre">remove_outliers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cont</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_train.remove_outliers" title="Permalink to this definition">¶</a></dt>
+<dd><p>function that remove outliers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return cont</dt>
+<dd class="field-odd"><p>contamination tax</p>
+</dd>
+<dt class="field-even">Return df</dt>
+<dd class="field-even"><p>dataframe to apply the solution</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_train.round_up">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_train.</span></span><span class="sig-name descname"><span class="pre">round_up</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decimals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_train.round_up" title="Permalink to this definition">¶</a></dt>
 <dd><p>function to around</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -102,41 +131,230 @@ estão dentro da pasta <cite>algorithms</cite> e <cite>repository</cite>.</p>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="servicos-auxiliares">
-<h2>Serviços Auxiliares<a class="headerlink" href="#servicos-auxiliares" title="Permalink to this headline">¶</a></h2>
-<p><strong>repository_service</strong></p>
-<span class="target" id="module-repository.repository_service"></span><dl class="py function">
-<dt class="sig sig-object py" id="repository.repository_service.get_df_from_csv">
-<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">get_df_from_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.get_df_from_csv" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns filename as dataframe</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_train.show_performance">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_train.</span></span><span class="sig-name descname"><span class="pre">show_performance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_train.show_performance" title="Permalink to this definition">¶</a></dt>
+<dd><p>function that show performance comparing original target with predicted target</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> – filename, example: name</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>dataframe in case of success or None in case of exception</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_test</strong> – original target</p></li>
+<li><p><strong>y_pred</strong> – predicted target</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="repository.repository_service.get_df_from_excel">
-<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">get_df_from_excel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.get_df_from_excel" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns filename as dataframe</p>
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_train.splitFeaturesTarget">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_train.</span></span><span class="sig-name descname"><span class="pre">splitFeaturesTarget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_train.splitFeaturesTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>function that split features of target</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> – filename, example: name</p>
+<dd class="field-odd"><p><strong>df</strong> – dataframe used</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_train.train_model">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_train.</span></span><span class="sig-name descname"><span class="pre">train_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_train.train_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>function that train a generic model with holdout with 20% to test</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>classifier</strong> – classifier used to train the dataset</p></li>
+<li><p><strong>df</strong> – dataframe used to create a model responsible for predicting y_train</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>predictor_test</strong></p>
+<span class="target" id="module-algorithms.challenge_senai.predictor_test"></span><dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_test.avaliate_level_0">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_test.</span></span><span class="sig-name descname"><span class="pre">avaliate_level_0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_train_clean_normalized</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_test_real_normalized</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_test.avaliate_level_0" title="Permalink to this definition">¶</a></dt>
+<dd><p>This part is responsible for evaluating the quality of base classifiers (or level 0)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_train_clean_normalized</strong> – dataframe of train normalized without outliers</p></li>
+<li><p><strong>df_test_real_normalized</strong> – dataframe of test normalized</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_test.avaliate_level_1">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_test.</span></span><span class="sig-name descname"><span class="pre">avaliate_level_1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_train_clean_normalized</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_test_real_normalized</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_test.avaliate_level_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>This part is responsible for evaluating the quality of ensemble classifiers level 1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_train_clean_normalized</strong> – dataframe of train normalized without outliers</p></li>
+<li><p><strong>df_test_real_normalized</strong> – dataframe of test normalized</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_test.avaliate_level_2">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_test.</span></span><span class="sig-name descname"><span class="pre">avaliate_level_2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_train_clean_normalized</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_test_real_normalized</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_test.avaliate_level_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>This part is responsible for evaluating the quality of stacking (ensemble of ensembles - level 2)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_train_clean_normalized</strong> – dataframe of train normalized without outliers</p></li>
+<li><p><strong>df_test_real_normalized</strong> – dataframe of test normalized</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_test.create_and_save_models">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_test.</span></span><span class="sig-name descname"><span class="pre">create_and_save_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_train_clean_normalized</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_test_real_normalized</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_test.create_and_save_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create and save models</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_train_clean_normalized</strong> – dataframe of train normalized without outliers</p></li>
+<li><p><strong>df_test_real_normalized</strong> – dataframe of test normalized</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_test.generate_prediction">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_test.</span></span><span class="sig-name descname"><span class="pre">generate_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_test.generate_prediction" title="Permalink to this definition">¶</a></dt>
+<dd><p>function that generates prediction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_train</strong> – features of train</p></li>
+<li><p><strong>y_train</strong> – target of train</p></li>
+<li><p><strong>x_test</strong> – features of test</p></li>
+<li><p><strong>model</strong> – model used</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_test.get_config_ensemble_lazy">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_test.</span></span><span class="sig-name descname"><span class="pre">get_config_ensemble_lazy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_test.get_config_ensemble_lazy" title="Permalink to this definition">¶</a></dt>
+<dd><p>function with configuration to ensemble of lazy</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_test.get_config_ensemble_nn">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_test.</span></span><span class="sig-name descname"><span class="pre">get_config_ensemble_nn</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_test.get_config_ensemble_nn" title="Permalink to this definition">¶</a></dt>
+<dd><p>function with configuration to ensemble of neural network</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_test.get_config_ensemble_svm">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_test.</span></span><span class="sig-name descname"><span class="pre">get_config_ensemble_svm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_test.get_config_ensemble_svm" title="Permalink to this definition">¶</a></dt>
+<dd><p>function with configuration to ensemble of svm</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_test.get_config_ensemble_tree">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_test.</span></span><span class="sig-name descname"><span class="pre">get_config_ensemble_tree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_test.get_config_ensemble_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>function with configuration to ensemble of tree</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_test.normalize_dataframe">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_test.</span></span><span class="sig-name descname"><span class="pre">normalize_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_test.normalize_dataframe" title="Permalink to this definition">¶</a></dt>
+<dd><p>function that normalize all df, except target</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> – dataframe to normalize</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="algorithms.challenge_senai.predictor_test.predictor_row">
+<span class="sig-prename descclassname"><span class="pre">algorithms.challenge_senai.predictor_test.</span></span><span class="sig-name descname"><span class="pre">predictor_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#algorithms.challenge_senai.predictor_test.predictor_row" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function generated to be able to predict a single specific line of the dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json</strong> – json of rest api</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="servicos-auxiliares">
+<h2>Serviços Auxiliares<a class="headerlink" href="#servicos-auxiliares" title="Permalink to this headline">¶</a></h2>
+<p><strong>repository_service</strong></p>
+<span class="target" id="module-repository.repository_service"></span><dl class="py function">
+<dt class="sig sig-object py" id="repository.repository_service.dataset_test_validation_exists">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">dataset_test_validation_exists</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.dataset_test_validation_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>check if parquet file of dataframe test exists</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="repository.repository_service.dataset_train_exists">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">dataset_train_exists</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.dataset_train_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>check if parquet file of dataframe train exists</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="repository.repository_service.dataset_trainer_test_exists">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">dataset_trainer_test_exists</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.dataset_trainer_test_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>check if parquet file of dataframe test exists</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="repository.repository_service.file_exists">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">file_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.file_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>check if file with name of model exists</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – model to save</p></li>
+<li><p><strong>folder</strong> – folder to save</p></li>
+<li><p><strong>name</strong> – name to save</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>dataframe in case of success or None in case of exception</p>
+<dd class="field-even"><p>true or false</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="repository.repository_service.get_dataset_test">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">get_dataset_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.get_dataset_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>check if parquet file of dataframe test exists</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="repository.repository_service.get_dataset_train">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">get_dataset_train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.get_dataset_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>check if parquet file of dataframe train exists</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="repository.repository_service.get_dfs_from_csv">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">get_dfs_from_csv</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.get_dfs_from_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>return dataframes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>x_train, x_test, y_test</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="repository.repository_service.load_model">
-<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.load_model" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.load_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>load model</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -149,9 +367,9 @@ estão dentro da pasta <cite>algorithms</cite> e <cite>repository</cite>.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="repository.repository_service.read_dataframe_parquet">
-<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">read_dataframe_parquet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.read_dataframe_parquet" title="Permalink to this definition">¶</a></dt>
-<dd><p>read dataframe parquet</p>
+<dt class="sig sig-object py" id="repository.repository_service.load_model_to_train">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">load_model_to_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.load_model_to_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>load model</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>name</strong> – name to load</p>
@@ -163,13 +381,42 @@ estão dentro da pasta <cite>algorithms</cite> e <cite>repository</cite>.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="repository.repository_service.save_dataframe_test">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">save_dataframe_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_teste_real</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.save_dataframe_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>save dataframe as parquet to directory</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> – dataframe to be save</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True in case of success or False in case of Fail</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="repository.repository_service.save_dataframe_train">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">save_dataframe_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_train</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.save_dataframe_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>save dataframe as parquet to directory</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> – dataframe to be save</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True in case of success or False in case of Fail</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="repository.repository_service.save_model">
-<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.save_model" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.save_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>save model to directory</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – model to save</p></li>
+<li><p><strong>folder</strong> – folder to save</p></li>
 <li><p><strong>name</strong> – name to save</p></li>
 </ul>
 </dd>
@@ -179,8 +426,26 @@ estão dentro da pasta <cite>algorithms</cite> e <cite>repository</cite>.</p>
 </dl>
 </dd></dl>
 
-</div>
-</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="repository.repository_service.save_model_to_train">
+<span class="sig-prename descclassname"><span class="pre">repository.repository_service.</span></span><span class="sig-name descname"><span class="pre">save_model_to_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#repository.repository_service.save_model_to_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>save model to directory</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – model to save</p></li>
+<li><p><strong>folder</strong> – folder to save</p></li>
+<li><p><strong>name</strong> – name to save</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True in case of success or False in case of Fail</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
 
 
         </div>

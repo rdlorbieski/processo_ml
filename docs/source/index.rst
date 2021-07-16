@@ -3,14 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-DOCUMENTAÇÃO - PROJETO EQUATION
-===============================
+DOCUMENTAÇÃO - PROJETO MLE (MACHINE LEARNING EXAM)
+==================================================
 
-.. image:: ../images/said-logo.png
-   :align: center
 
-O Projeto EQUATION busca realizar serviços de análises de dados.
-O EQUATION foi implementado como uma aplicação flask em Python
+O Projeto MLE busca realizar serviços de previsões de dados.
+O MLE foi implementado como uma aplicação flask em Python
 e utiliza em sua comunicação API Rest via JSON.
 
 A documentação de todo o código-fonte é encontrada a seguir:

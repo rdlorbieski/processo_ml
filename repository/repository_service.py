@@ -37,6 +37,26 @@ def get_dfs_from_csv():
         logger.log.info("RepositoryService get_dfs exception " + str(e))
         return None
 
+def save_model_to_train(model,  name):
+    """
+    save model to directory
+
+    :param model: model to save
+    :param folder: folder to save
+    :param name: name to save
+    :return: True in case of success or False in case of Fail
+
+    """
+
+    try:
+        filename = path_model + "models_to_train" + os.path.sep + name + '.pkl'
+        with open(filename, 'wb') as file:
+            pickle.dump(model, file)
+        logger.log.debug("saved model")
+        return True
+    except Exception as e:
+        logger.log.debug("save_model exception:" + str(e))
+
 def save_model(model, folder, level, name):
     """
     save model to directory
@@ -57,6 +77,21 @@ def save_model(model, folder, level, name):
     except Exception as e:
         logger.log.debug("save_model exception:" + str(e))
 
+def load_model_to_train(name):
+    """ load model
+
+    :param name: name to load
+    :return: model in case of success or None in case of fail
+
+    """
+
+    try:
+        filename = path_model + "models_to_train" + os.path.sep + name + '.pkl'
+        reg = pickle.load(open(filename, 'rb'))
+        return reg
+    except Exception as e:
+        logger.log.debug("load_model exception:" + str(e))
+        return None
 
 def load_model(folder, level, name):
     """ load model

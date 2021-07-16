@@ -1,13 +1,8 @@
 import pandas as pd
-import os
-
 from sklearn.metrics import accuracy_score
-
-import config
 from sklearn.covariance import EllipticEnvelope
 from sklearn.cluster import KMeans
 import warnings
-from sklearn.ensemble import GradientBoostingClassifier, AdaBoostClassifier
 import numpy as np
 import repository.repository_service as rs
 from sklearn import tree, metrics
@@ -70,10 +65,11 @@ def remove_outliers(cont, df):
 
 def create_test_dataframes_to_train_and_validate():
     """
-    function that creates the dataframe to generate the y_train and to generate the solution evaluation dataframe
+    function that separates the test set into a dataset to discover y_train and another to do the actual validation of
+    the solution.
 
-    :return df_test_to_train: dataframe to generate the y_train
-    :return df_test_real: dataframe to test the solution
+    :return df_trainer_test: dataframe to generate the y_train
+    :return df_test_validation: dataframe to test the solution
     """
 
     x_train, x_test, y_test = rs.get_dfs_from_csv()
@@ -88,27 +84,27 @@ def create_test_dataframes_to_train_and_validate():
 
     #  remove outliers para treinar com dados certos
     df_test_sem_out = remove_outliers(0.2, df_test)
-    df_test_train = df_test_sem_out.sample(frac=.40, random_state=1)
+    df_trainer_test = df_test_sem_out.sample(frac=.40, random_state=1)
 
     list_ids_to_remove = []  # pega o dataset original e ve quais ids tem que remover dali
     for indexes, row in df_test.iterrows():
-        if row.id in list(df_test_train.id):
+        if row.id in list(df_trainer_test.id):
             list_ids_to_remove.append(int(row.id))
 
-    df_test_real = df_test.copy()
-    df_test_real = df_test_real[~df_test_real.id.isin(list_ids_to_remove)]
+    df_test_validation = df_test.copy()
+    df_test_validation = df_test_validation[~df_test_validation.id.isin(list_ids_to_remove)]
 
-    df_test_train = df_test_train.drop(columns=['id'])
-    df_test_real = df_test_real.drop(columns=['id'])
-    return x_train, df_test_train, df_test_real
+    df_trainer_test = df_trainer_test.drop(columns=['id'])
+    df_test_validation = df_test_validation.drop(columns=['id'])
+    return x_train, df_trainer_test, df_test_validation
 
 
 def train_model(classifier, df):
     """
-       function that train a generic model
+    function that train a generic model with holdout with 20% to test
 
-       :param classifier: classifier used to train the dataset
-       :param df: dataframe used to create a model responsible for predicting y_train
+    :param classifier: classifier used to train the dataset
+    :param df: dataframe used to create a model responsible for predicting y_train
     """
     x, y = splitFeaturesTarget(df)
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=2)
@@ -122,10 +118,10 @@ def train_model(classifier, df):
 
 def show_performance(y_test, y_pred):
     """
-       function that show performance comparing original target with predicted target
+    function that show performance comparing original target with predicted target
 
-       :param y_test: original target
-       :param y_pred: predicted target
+    :param y_test: original target
+    :param y_pred: predicted target
     """
     accuracy = round_up(accuracy_score(y_test, y_pred), 2)
     fpr, tpr, thresholds = metrics.roc_curve(y_test, y_pred)
@@ -143,20 +139,21 @@ def create_model_to_predict_y_train(df_test_train):
     df_test_train_resume = df_test_train.loc[:, ['c1', 'c6', 'c8', 'c11', 'c13', 'c14','c16', 'c18', 'c19', 'target']]
     model = tree.DecisionTreeClassifier(max_depth=4)
     trained_model, accuracy, auc = train_model(model, df_test_train_resume)
+
     print("Acuracia da arvore de decisão:" + str(accuracy)+" auc = "+str(auc))
-    rs.save_model(trained_model, "models_to_train", "tree")
+    return trained_model
 
 
 def predict_y_train(x_train):
     """
-       function that predict y_train
+    function that predict y_train
 
-       :param x_train: features of train
+    :param x_train: features of train
     """
 
     x_train_resumed = x_train.loc[:, ['c1', 'c6', 'c8', 'c11', 'c13', 'c14','c16', 'c18', 'c19']]
     y_train = []
-    tr = rs.load_model("models_to_train", "tree")
+    tr = rs.load_model_to_train("tree")
     for indexes, row in x_train_resumed.iterrows():
         y_train.append(tr.predict([row])[0])
     return y_train

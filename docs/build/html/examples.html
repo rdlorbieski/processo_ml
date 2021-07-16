@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>API - EXEMPLOS DE UTILIZAÇÃO &#8212; FlaskApp 1.2.1 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -36,7 +37,10 @@
           <h3>Table of Contents</h3>
           <ul>
 <li><a class="reference internal" href="#">API - EXEMPLOS DE UTILIZAÇÃO</a><ul>
-<li><a class="reference internal" href="#qe-quadratic-equation">QE - Quadratic Equation</a></li>
+<li><a class="reference internal" href="#predict-row">Predict row</a></li>
+<li><a class="reference internal" href="#check-accuracy">Check Accuracy</a></li>
+<li><a class="reference internal" href="#gerador-de-datasets-e-modelo-para-prever-y-train">Gerador de datasets e modelo para prever y_train</a></li>
+<li><a class="reference internal" href="#gerador-de-modelos-para-avaliar-a-solucao">Gerador de modelos para avaliar a solução</a></li>
 </ul>
 </li>
 </ul>
@@ -44,36 +48,105 @@
         </div>
         <div role="main">
         
-  <div class="section" id="api-exemplos-de-utilizacao">
+  <section id="api-exemplos-de-utilizacao">
 <h1>API - EXEMPLOS DE UTILIZAÇÃO<a class="headerlink" href="#api-exemplos-de-utilizacao" title="Permalink to this headline">¶</a></h1>
 <p>Este documento tem por objetivo documentar o código da API implementada
 e como deve ser realizada a sua utilização.</p>
-<div class="section" id="qe-quadratic-equation">
-<h2>QE - Quadratic Equation<a class="headerlink" href="#qe-quadratic-equation" title="Permalink to this headline">¶</a></h2>
-<p>No módulo do Equation existem uma única chamada:
-<cite>localhost:5000/predict_equation</cite> .</p>
+<section id="predict-row">
+<h2>Predict row<a class="headerlink" href="#predict-row" title="Permalink to this headline">¶</a></h2>
+<p>Nesse módulo existe uma única chamada:
+<cite>localhost:5000/predict_row</cite> .</p>
 <p><em>1 - Método POST:</em></p>
 <p>A requisição abaixo efetua a predição.</p>
-<p><strong>Requisição:</strong> localhost:5000/predict_equation</p>
+<p><strong>Requisição:</strong> localhost:5000/predict_row</p>
 <p><strong>Exemplo de Entrada: (JSON)</strong></p>
-<p>A entrada é um json com os parâmetros a, b, c</p>
+<p>A entrada é um json com as 20 colunas:</p>
 <div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;a&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&quot;b&quot;</span><span class="p">:</span> <span class="mi">-3</span><span class="p">,</span>
-    <span class="nt">&quot;c&quot;</span><span class="p">:</span> <span class="mi">2</span>
+    <span class="nt">&quot;c1&quot;</span><span class="p">:</span> <span class="mf">-0.62</span><span class="p">,</span>
+    <span class="nt">&quot;c2&quot;</span><span class="p">:</span> <span class="mf">-1.63</span><span class="p">,</span>
+    <span class="nt">&quot;c3&quot;</span><span class="p">:</span> <span class="mf">-3.05</span><span class="p">,</span>
+    <span class="nt">&quot;c4&quot;</span><span class="p">:</span> <span class="mf">-1.37</span><span class="p">,</span>
+    <span class="nt">&quot;c5&quot;</span><span class="p">:</span> <span class="mf">-0.62</span><span class="p">,</span>
+    <span class="nt">&quot;c6&quot;</span><span class="p">:</span> <span class="mf">0.82</span><span class="p">,</span>
+    <span class="nt">&quot;c7&quot;</span><span class="p">:</span> <span class="mf">0.82</span><span class="p">,</span>
+    <span class="nt">&quot;c8&quot;</span><span class="p">:</span> <span class="mf">-1.63</span><span class="p">,</span>
+    <span class="nt">&quot;c9&quot;</span><span class="p">:</span> <span class="mf">-1.37</span><span class="p">,</span>
+    <span class="nt">&quot;c10&quot;</span><span class="p">:</span> <span class="mf">-2.52</span><span class="p">,</span>
+    <span class="nt">&quot;c11&quot;</span><span class="p">:</span> <span class="mf">-1.07</span><span class="p">,</span>
+    <span class="nt">&quot;c12&quot;</span><span class="p">:</span> <span class="mf">0.00</span><span class="p">,</span>
+    <span class="nt">&quot;c13&quot;</span><span class="p">:</span> <span class="mf">-0.9</span><span class="p">,</span>
+    <span class="nt">&quot;c14&quot;</span><span class="p">:</span> <span class="mf">-1.01</span><span class="p">,</span>
+    <span class="nt">&quot;c15&quot;</span><span class="p">:</span> <span class="mf">-0.62</span><span class="p">,</span>
+    <span class="nt">&quot;c16&quot;</span><span class="p">:</span> <span class="mf">0.02</span><span class="p">,</span>
+    <span class="nt">&quot;c17&quot;</span><span class="p">:</span> <span class="mf">-1.01</span><span class="p">,</span>
+    <span class="nt">&quot;c18&quot;</span><span class="p">:</span> <span class="mf">-0.74</span><span class="p">,</span>
+    <span class="nt">&quot;c19&quot;</span><span class="p">:</span> <span class="mf">1.86</span><span class="p">,</span>
+    <span class="nt">&quot;c20&quot;</span><span class="p">:</span> <span class="mf">5.28</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Exemplo de Saída: (JSON)</strong></p>
-<p>O retorno é um json com as raízes da equação quadrática</p>
+<p>O retorno é um json com o resultado da variável alvo</p>
 <div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;x1&quot;</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span>
-    <span class="nt">&quot;x2&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
+    <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+</section>
+<section id="check-accuracy">
+<h2>Check Accuracy<a class="headerlink" href="#check-accuracy" title="Permalink to this headline">¶</a></h2>
+<p>Nesse módulo existe uma única chamada:
+<cite>localhost:5000/check_accuracy</cite> .</p>
+<p><em>1 - Método GET:</em></p>
+<p>A requisição abaixo efetua a verificação da acurácia do stacking.</p>
+<p><strong>Requisição:</strong> localhost:5000/check_accuracy</p>
+<p><strong>Exemplo de Entrada: (JSON)</strong></p>
+<p>Sem entrada</p>
+<p><strong>Exemplo de Saída: (JSON)</strong></p>
+<p>O retorno é um json com o resultado da variável alvo</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="nt">&quot;accuracy&quot;</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">,</span>
+        <span class="nt">&quot;auc&quot;</span><span class="p">:</span> <span class="mf">0.71</span>
+<span class="p">}</span>
+</pre></div>
 </div>
+</section>
+<section id="gerador-de-datasets-e-modelo-para-prever-y-train">
+<h2>Gerador de datasets e modelo para prever y_train<a class="headerlink" href="#gerador-de-datasets-e-modelo-para-prever-y-train" title="Permalink to this headline">¶</a></h2>
+<p>Nesse módulo existe uma única chamada:
+<cite>localhost:5000/generate_datasets_parquet_and_model_to_predict_ytrain</cite> .</p>
+<p><em>1 - Método GET:</em></p>
+<p>A requisição abaixo gera os datasets necessários para a solução.
+Além do modelo para gerar o y_train.</p>
+<p><strong>Requisição:</strong> localhost:5000/generate_datasets_parquet_and_model_to_predict_ytrain</p>
+<p><strong>Exemplo de Entrada: (JSON)</strong></p>
+<p>Sem entrada</p>
+<p><strong>Exemplo de Saída: (JSON)</strong></p>
+<p>O retorno é um json com o resultado da variável alvo</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;Response&quot;</span><span class="p">:</span> <span class="s2">&quot;Datasets and Model generated with sucess!!&quot;</span>
+<span class="p">}</span>
+</pre></div>
 </div>
+</section>
+<section id="gerador-de-modelos-para-avaliar-a-solucao">
+<h2>Gerador de modelos para avaliar a solução<a class="headerlink" href="#gerador-de-modelos-para-avaliar-a-solucao" title="Permalink to this headline">¶</a></h2>
+<p>Nesse módulo existe uma única chamada:
+<cite>localhost:5000/generate_models_to_validate_solution</cite> .</p>
+<p><em>1 - Método GET:</em></p>
+<p>A requisição abaixo gera os modelos de machine learning necessários para a solução.</p>
+<p><strong>Requisição:</strong> localhost:5000/generate_models_to_validate_solution</p>
+<p><strong>Exemplo de Entrada: (JSON)</strong></p>
+<p>Sem entrada</p>
+<p><strong>Exemplo de Saída: (JSON)</strong></p>
+<p>O retorno é um json com o resultado da variável alvo</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;Response&quot;</span><span class="p">:</span> <span class="s2">&quot;Models generated with success!!&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
 
 
         </div>

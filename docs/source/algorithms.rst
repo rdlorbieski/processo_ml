@@ -6,18 +6,18 @@ que é utilizado internamente na API implementada. Esses módulos auxiliares
 estão dentro da pasta `algorithms` e `repository`.
 
 
-QE - Quadratic Equation
+API Exam ML
 ----------------------------------------
 
-**equation_class**
+**predictor_train**
 
-.. autoclass:: algorithms.equation.equation.Equation
+.. automodule:: algorithms.challenge_senai.predictor_train
    :members:
    :private-members:
 
-**equation_predictor**
+**predictor_test**
 
-.. automodule:: algorithms.equation.equation_predictor
+.. automodule:: algorithms.challenge_senai.predictor_test
    :members:
    :private-members:
 
