@@ -1,17 +1,37 @@
 import pandas as pd
 import os
+
+from sklearn.metrics import accuracy_score
+
 import config
 from sklearn.covariance import EllipticEnvelope
 from sklearn.cluster import KMeans
 import warnings
 from sklearn.ensemble import GradientBoostingClassifier, AdaBoostClassifier
 import numpy as np
-from algorithms.challenge_senai.SklearnHelper import SklearnHelper
+from algorithms.challenge_senai.sklearn_helper import SklearnHelper
 import repository.repository_service as rs
+from sklearn import tree, metrics
+from sklearn.model_selection import train_test_split
+import math
 
 pd.set_option('display.float_format', lambda x: '%.2f' % x)
 warnings.filterwarnings("ignore")
 
+
+def round_up(n, decimals=0):
+    """
+    function to around
+
+    :param n: number to around
+    :param decimals: total of decimals
+    :return result: rounded numeric value
+    """
+    if n == 0:
+        return 0
+    else:
+        multiplier = 10 ** decimals
+        return math.ceil(n * multiplier) / multiplier
 
 def concatXY(x, y, nome):
     """
@@ -23,6 +43,7 @@ def concatXY(x, y, nome):
     df_train = pd.concat([x, seriey], axis=1)
     return df_train
 
+
 def splitFeaturesTarget(df):
     """
     function that split features of target
@@ -33,34 +54,20 @@ def splitFeaturesTarget(df):
     y = df.iloc[:, -1]
     return X, y
 
-def remove_columns_linearly_dependent_train_test(df_tr, df_te):
+
+def remove_outliers(cont, df):
     """
-    function that removes linearly dependent variables found in the test dataframe
+    function that remove outliers
 
-    :return df_test_to_train: dataframe to generate the y_train
-    :return df_test_real: dataframe to test the solution
+    :return cont: contamination tax
+    :return df: dataframe to apply the solution
     """
+    if cont is None or cont == np.nan:
+        cont = 0.2
+    clf = EllipticEnvelope(support_fraction=1., contamination=cont).fit(df)
+    df_test_sem_out = df.drop(df[clf.predict(df) == -1].index.values.tolist())
+    return df_test_sem_out
 
-    # c1 has same variance that c5, c15
-    # c2 has same variance that c8
-    # c4 has same variance that c9
-    # c6 has same variance that c7
-    # c14 has same variance that c17
-
-    # Create correlation matrix
-    corr_matrix = df_te.corr().abs()
-
-    # Select upper triangle of correlation matrix
-    upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(np.bool))
-
-    # Find features with correlation greater than 0.95
-    to_drop = [column for column in upper.columns if any(upper[column] > 0.95)]
-
-    # Drop features
-    df_train = df_tr.drop(to_drop, axis=1)
-    df_test = df_te.drop(to_drop, axis=1)
-
-    return df_train, df_test
 
 def create_test_dataframes_to_train_and_validate():
     """
@@ -72,62 +79,85 @@ def create_test_dataframes_to_train_and_validate():
 
     x_train, x_test, y_test = rs.get_dfs_from_csv()
     print(x_train.shape[0], x_test.shape[0], y_test.shape[0])
-    # print(x_train.isnull().sum())
 
-    # =============== 1a abordagem: KMeans:
-    clustering = KMeans(n_clusters=2, random_state=4).fit(x_train)
-    # print(clustering.labels_)
+    print(list(x_train.isnull().sum()))
+    # remove any row with nan
+    x_train = x_train.dropna(axis=0, how='any')
 
-    # =============== 2a abordagem: treinar com um pouco de dados de test:
-
-    # remove columns with same variance
-    x_train, x_test = remove_columns_linearly_dependent_train_test(x_train, x_test)
-
-    df_teste = pd.concat([x_test, y_test], axis=1)
-    df_teste['id'] = df_teste.index
+    df_test = pd.concat([x_test, y_test], axis=1)
+    df_test['id'] = df_test.index
 
     #  remove outliers para treinar com dados certos
-    clf = EllipticEnvelope(support_fraction=1., contamination=0.2).fit(df_teste)
-    df_teste_sem_out = df_teste.drop(df_teste[clf.predict(df_teste) == -1].index.values.tolist())
+    df_test_sem_out = remove_outliers(0.2, df_test)
+    df_test_train = df_test_sem_out.sample(frac=.40, random_state=1)
 
-    df_teste_treino = df_teste_sem_out.sample(frac=.25)
+    list_ids_to_remove = []  # pega o dataset original e ve quais ids tem que remover dali
+    for indexes, row in df_test.iterrows():
+        if row.id in list(df_test_train.id):
+            list_ids_to_remove.append(int(row.id))
 
-    list_ids_a_remover = []  # pega o dataset original e ve quais ids tem que remover dali
-    for indexes, row in df_teste.iterrows():
-        if row.id in list(df_teste_treino.id):
-            list_ids_a_remover.append(int(row.id))
+    df_test_real = df_test.copy()
+    df_test_real = df_test_real[~df_test_real.id.isin(list_ids_to_remove)]
 
-    df_teste_real = df_teste.copy()
-    df_teste_real = df_teste_real[~df_teste_real.id.isin(list_ids_a_remover)]
-
-    df_teste_treino = df_teste_treino.drop(columns=['id'])
-    df_teste_real = df_teste_real.drop(columns=['id'])
-    return x_train, df_teste_treino, df_teste_real
+    df_test_train = df_test_train.drop(columns=['id'])
+    df_test_real = df_test_real.drop(columns=['id'])
+    return x_train, df_test_train, df_test_real
 
 
-def create_model_to_predict_y_train(df_teste_treino):
+def train_model(classifier, df):
+    """
+       function that train a generic model
+
+       :param classifier: classifier used to train the dataset
+       :param df: dataframe used to create a model responsible for predicting y_train
+    """
+    x, y = splitFeaturesTarget(df)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=2)
+    classifier.fit(x_train, y_train)
+    y_pred = classifier.predict(x_test)
+    accuracy = round_up(accuracy_score(y_test, y_pred), 2)
+    fpr, tpr, thresholds = metrics.roc_curve(y_test, y_pred)
+    auc = round_up(metrics.auc(fpr, tpr), 2)
+
+    return classifier, accuracy, auc
+
+def show_performance(y_test, y_pred):
+    """
+       function that show performance comparing original target with predicted target
+
+       :param y_test: original target
+       :param y_pred: predicted target
+    """
+    accuracy = round_up(accuracy_score(y_test, y_pred), 2)
+    fpr, tpr, thresholds = metrics.roc_curve(y_test, y_pred)
+    auc = metrics.auc(fpr, tpr)
+    cm = metrics.confusion_matrix(y_test, y_pred)
+    return accuracy, auc, cm
+
+def create_model_to_predict_y_train(df_test_train):
     """
     function that creates a model to predict y_train
 
-    :param df_teste_treino: dataframe used to create a model responsible for predicting y_train
+    :param df_test_train: dataframe used to create a model responsible for predicting y_train
     """
 
-    ada_params = {
-        'n_estimators': 500,
-        'learning_rate': 0.75
-    }
-    SEED = 4
-    ada = SklearnHelper(clf=AdaBoostClassifier, seed=SEED, params=ada_params)
-    x, y = splitFeaturesTarget(df_teste_treino)
-    print("O numero de linhas e colunas = ",x.shape)
-    model = ada.fit(x, y)
-    rs.save_model(model, "models_to_train", "adaboost")
+    df_test_train_resume = df_test_train.loc[:, ['c1', 'c6', 'c8', 'c11', 'c13', 'c14','c16', 'c18', 'c19', 'target']]
+    model = tree.DecisionTreeClassifier(max_depth=4)
+    trained_model, accuracy, auc = train_model(model, df_test_train_resume)
+    print("Acuracia da arvore de decisão:" + str(accuracy)+" auc = "+str(auc))
+    rs.save_model(trained_model, "models_to_train", "tree")
 
 
 def predict_y_train(x_train):
+    """
+       function that predict y_train
+
+       :param x_train: features of train
+    """
+
+    x_train_resumed = x_train.loc[:, ['c1', 'c6', 'c8', 'c11', 'c13', 'c14','c16', 'c18', 'c19']]
     y_train = []
-    ada = rs.load_model("models_to_train","adaboost")
- #   print(ada.predict(array))
-    for indexes, row in x_train.iterrows():
-        y_train.append(ada.predict([row]))
+    tr = rs.load_model("models_to_train", "tree")
+    for indexes, row in x_train_resumed.iterrows():
+        y_train.append(tr.predict([row])[0])
     return y_train

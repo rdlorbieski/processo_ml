@@ -31,16 +31,13 @@ def get_dfs_from_csv():
         x_test = pd.read_csv(path_dataset + "original" + os.path.sep + "X_test.csv", header=None, names=column_names)
         y_test = pd.read_csv(path_dataset + "original" + os.path.sep + "y_test.csv", header=None, names=['target'])
 
-        # remove any row with nan
-        x_train = x_train.dropna(axis=0, how='any')
-
         logger.log.info("file loaded")
         return x_train, x_test, y_test
     except Exception as e:
         logger.log.info("RepositoryService get_dfs exception " + str(e))
         return None
 
-def save_model(model, folder, name):
+def save_model(model, folder, level, name):
     """
     save model to directory
 
@@ -52,7 +49,7 @@ def save_model(model, folder, name):
     """
 
     try:
-        filename = path_model + folder + os.path.sep + name + '.pkl'
+        filename = path_model + folder + os.path.sep + level + os.path.sep + name + '.pkl'
         with open(filename, 'wb') as file:
             pickle.dump(model, file)
         logger.log.debug("saved model")
@@ -61,7 +58,7 @@ def save_model(model, folder, name):
         logger.log.debug("save_model exception:" + str(e))
 
 
-def load_model(folder, name):
+def load_model(folder, level, name):
     """ load model
 
     :param name: name to load
@@ -70,7 +67,7 @@ def load_model(folder, name):
     """
 
     try:
-        filename = path_model + folder + os.path.sep + name + '.pkl'
+        filename = path_model + folder + os.path.sep + level + os.path.sep + name + '.pkl'
         reg = pickle.load(open(filename, 'rb'))
         return reg
     except Exception as e:
@@ -138,3 +135,61 @@ def get_dataset_train():
     filename = path_dataset + "created" + os.path.sep + "df_train.parquet"
     df = pd.read_parquet(filename)
     return df
+
+def get_dataset_test(name):
+    """
+       check if parquet file of dataframe test exists
+
+    """
+    filename = path_dataset + "created" + os.path.sep + name + ".parquet"
+    df = pd.read_parquet(filename)
+    return df
+
+
+
+def dataset_test_validation_exists():
+    """
+    check if parquet file of dataframe test exists
+
+    """
+
+    try:
+        filename = path_dataset + "created" + os.path.sep + "df_test_validation.parquet"
+        check_exists = os.path.isfile(filename)
+        return check_exists
+    except Exception as e:
+        logger.log.debug("check error exception:" + str(e))
+        return None
+
+def dataset_trainer_test_exists():
+    """
+    check if parquet file of dataframe test exists
+
+    """
+
+    try:
+        filename = path_dataset + "created" + os.path.sep + "df_trainer_test.parquet"
+        check_exists = os.path.isfile(filename)
+        return check_exists
+    except Exception as e:
+        logger.log.debug("check error exception:" + str(e))
+        return None
+
+
+def save_dataframe_test(name, df_teste_real):
+    """
+    save dataframe as parquet to directory
+
+    :param df: dataframe to be save
+    :return: True in case of success or False in case of Fail
+
+    """
+
+    try:
+
+        filename = path_dataset + "created" + os.path.sep + name + ".parquet"
+        df_teste_real.to_parquet(fname=filename)
+        logger.log.debug("saved df test")
+        return True
+    except Exception as e:
+        logger.log.debug("save_model exception:" + str(e))
