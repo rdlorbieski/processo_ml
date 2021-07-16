@@ -36,9 +36,11 @@ df_test_real_normalized = pte.normalize_dataframe(df_test_real)
 acc_2, min = [0, 0.7]
 
 while acc_2 < min:
-
+    print(".")
     stacking, acc_2, auc_level_2, matrix_confusion = pte.avaliate_level_2(df_train_clean_normalized, df_test_real_normalized)
+
     if acc_2 >= min:
+
         # check performance of base classifiers (level 0):
         print("======================= check performance and evaluating level 0 ")
         models_levels_0, level_0_performance = pte.avaliate_level_0(df_train_clean_normalized, df_test_real_normalized)

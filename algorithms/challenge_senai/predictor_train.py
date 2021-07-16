@@ -9,7 +9,6 @@ from sklearn.cluster import KMeans
 import warnings
 from sklearn.ensemble import GradientBoostingClassifier, AdaBoostClassifier
 import numpy as np
-from algorithms.challenge_senai.sklearn_helper import SklearnHelper
 import repository.repository_service as rs
 from sklearn import tree, metrics
 from sklearn.model_selection import train_test_split

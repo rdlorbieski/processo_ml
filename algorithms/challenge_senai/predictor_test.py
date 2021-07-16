@@ -43,13 +43,13 @@ def get_config_ensemble_lazy():
 
     # Build stack model
     stack_model_knn = VotingClassifier(
-        estimators=estimator_list, voting='hard'
+        estimators=estimator_list, voting='soft'
     )
     return stack_model_knn
 
 
 def get_config_ensemble_svm():
-    svm1 = svm.SVC(kernel='linear', C=1.0)
+    svm1 = svm.SVC(kernel='linear', C=1.0, probability=True)
     clf = AdaBoostClassifier(n_estimators=20, base_estimator=svm1, algorithm='SAMME')
     return clf
 

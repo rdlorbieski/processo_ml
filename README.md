@@ -13,27 +13,27 @@ imagem
 ```
 aplicacao-flask
 ├── algorithms 
-│   ├── alg1
-│   │   ├── trainer.py
-│   │   └── predictor.py 
-│   └── ...
+│   └── challenge_senai
+│       ├── predictor_test.py
+│       ├── predictor_train.py
+│       └── main.py
+│       
 ├── dataset
-│   ├── database.csv
-│   ├── instances
-│   │   ├── instance-1.csv
-│   │   ├── instance-2.csv
-│   │   ├── instance-3.csv
-│   │   └── ...
-│   └── ...
+│   ├── created
+│   │   ├── df_test_validation.parquet
+│   │   ├── df_train.parquet
+│   │   └── df_trainer_test.parquet
+│   │   
+│   └── original
+│       ├── X_test.csv
+│       ├── X_train.csv
+│       └── y_test.csv
+│       
 ├── docs
 │   ├── build
-│   │   ├── html
-│	│	│	├── index.html
-│	│	│	└── ...
-│   │   └── ...
-│   │
+│   │	├── ...
+│   │	└── html 
 │   ├── images
-│   │  
 │   └── source
 │
 ├── repository
@@ -41,19 +41,17 @@ aplicacao-flask
 │
 ├── test
 │   ├── __init__.py
-│   └── test_basic.py
+│   └── test_sample.py
 │
 ├── trained
 │   └── models
-│   	├── model1.pkl
-│   	├── model2.pkl
-│   	└── ...
-│
-├── models
-│   ├── model-features.csv
-│   ├── model-features-simples.csv
-│   └── ...
-│
+│       ├── models_to_evaluate
+│       │   ├── level_0
+│       │   ├── level_1
+│      	│   └── level_2
+│       │
+│       └── models_to_train
+│           
 ├── app.py
 ├── config.py
 ├── docker-compose.yml
