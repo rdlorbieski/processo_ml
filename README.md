@@ -80,10 +80,11 @@ aplicacao-flask
 Se desejar fazer tudo via chamada rest:
 Rode o arquivo (na raiz) app: python app.py
 A seguinte requisição (get) gera os datasets necessários para solução, além de treinar o modelo que vai prever y_train: localhost:5000/generate_datasets_parquet_and_model_to_predict_ytrain
+
 Outra requisição importante (get) gera os modelos de machine learning necessários para a solução: localhost:5000/generate_models_to_validate_solution.
 
 Maiores detalhes e outras opções de requisição estão na documentação da api (./docs/build/html/index.html):
-![](./docs/images/mle_exam.jpg)
+![](./docs/images/mle_exam.png)
 
 
 
