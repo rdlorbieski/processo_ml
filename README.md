@@ -87,13 +87,6 @@ Maiores detalhes e outras opções de requisição estão na documentação da a
 ![](./docs/images/api.png)
 
 
-
-
-## O projeto tem documentação?
-
-A pasta docs/build/html/index.html possui toda documentação da API com explicação das funções nos códigos.
-
-
 ## Resultados
 
-Alguns dos principais resultados produzidos podem ser encontradas [aqui](https://github.com/jesimar/desafio-senai/tree/main/docs)
+Alguns dos principais resultados produzidos podem ser encontradas [aqui](https://github.com/rdlorbieski/processo_ml/tree/main/docs/results)

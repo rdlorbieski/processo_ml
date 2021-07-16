@@ -1,86 +1,69 @@
-# Aplicação
+# Resultados Obtidos
 
-O presente repositório tem como objetivo divulgar a solução do problema proposto no teste seletivo de pesquisador 2 de Machine Learning pelo Instituto Senai de Inovação em Sistemas Embarcados.
-
-A base toda do projeto foi construída em cima da linguagem Python. Entretanto pode rodar independente do ambiente via docker.
-
-## Enunciado do Desafio
-
-Treinar um classificador binário incorporando o conceito de stacking em sua solução, e que esteja apto a justificar as escolhas que foram feitas ao longo do desenvolvimento.
-Entre os diversos desafios, destaca-se as estratégias para rotulação do conjunto  de treinamento, que não é rotulado.
+A seguir são apresentados alguns resultados obtidos no decorrer do desafio.
 
 
-## Pipeline da Solução
+## Desafios
 
-A seguir temos um pipeline geral da solução para esse desafio.
-![](./docs/figures/pipeline.png)
+* **Sem y_train**:
+Dados vieram sem y_train, onde é necessário, buscar estratégias para repor o mesmo. Abordagem (apenas inicial) com clusters não funcionou. 
+Optou-se então por separar um parte do conjunto de teste para gerar o y_train.
 
-## Organização do Código
+* **Dados de teste pequenos, overfitting e data leakage** -> 
+A fim de se evitar o data leakage, separou-se um conjunto de teste para gerar o y_train, do conjunto para validação. 
+Entretanto, cuidados com o percentual na separação e na seleção de linhas foram necessários.
 
-```
-aplicacao-flask
-├── algorithms 
-│   └── challenge_senai
-│       ├── predictor_test.py
-│       ├── predictor_train.py
-│       └── main.py
-│       
-├── dataset
-│   ├── created
-│   │   ├── df_test_validation.parquet
-│   │   ├── df_train.parquet
-│   │   └── df_trainer_test.parquet
-│   │   
-│   └── original
-│       ├── X_test.csv
-│       ├── X_train.csv
-│       └── y_test.csv
-│       
-├── docs
-│   ├── build
-│   │	├── ...
-│   │	└── html 
-│   ├── images
-│   └── source
-│
-├── repository
-│   └── repository_service.py  
-│
-├── test
-│   ├── __init__.py
-│   └── test_sample.py
-│
-├── trained
-│   └── models
-│       ├── models_to_evaluate
-│       │   ├── level_0
-│       │   ├── level_1
-│      	│   └── level_2
-│       │
-│       └── models_to_train
-│           
-├── app.py
-├── config.py
-├── docker-compose.yml
-├── Dockerfile
-├── logger
-├── README.md
-└── requirements.txt
-```
+* **Dados de teste com comportamento distinto dos dados de treinamento**: 
+Várias variáveis apresentaram comportamento absolutamente distinto no treino e no teste.
+Observe os próximos gráficos, eles mostram as correlações entre as variaveis independentes dos datasets de treino e de teste (nos arquivos originais, enviados):
 
-## Como executar o projeto
+Correlação nas variaveis independentes na base de treino:
+![](./figures/correlacao_treino.png)
 
-Com docker: 
+Correlação nas variaveis independentes na base de teste:
+![](./figures/correlacao_teste.png)
 
-Sem docker: 
-python ./src/code-ai.py
+Fica evidente a diferença entre correlações entre variáveis algumas independentes de x_train para x_test (por exemplo, c2 e c4). 
+Prever o target de outro dataframe nessas condições pode não funcionar.
+
+Para resolver, inicialmente viu-se como o target nos dados de treino se relacionam com as demais variáveis:
+![](./figures/correlacao_target.png)
+
+Aparentemente c16, c18 e c19 são variáveis que influenciam significativamente a variável target. 
+Após testes concluindo como essas variáveis inpactam, deciciu-se focar apenas nessas variáveis e também nas que se correlacionam com elas, no caso, as colunas 'c1', 'c6', 'c8', 'c11', 'c13', 'c14','c16', 'c18', 'c19'.
+
+Como ficou os gráficos de correlação agora?
+Correlação nas variaveis independentes na base de treino com feature engineering:
+![](./figures/correlacao_treino_v2.png)
+
+Correlação nas variaveis independentes na base de teste com feature engineering:
+![](./figures/correlacao_teste_v2.png)
+
+Seguiu-se então para a previsão de y_train. 
+Nesse caso optou-se por um classificador de facil interpretabilidade para mais fácil auditoria, mas com alta acuracidade. Criou-se então um modelo de ML baseado em árvore de decisão:
+![](./figures/tree.png)
 
 
-## O projeto tem documentação?
 
-A pasta docs/build/html/index.html possui toda documentação da API com explicação das funções nos códigos.
+* **Y_train não tem boa correlação com as variáveis do x_train**:
+Ter feito a análise da natureza da interação entre as variaveis ajudou, mas ainda tem-se o problema da baixa correlação de y_train com x_train:
+![](./figures/correlacao_dados_treino.png)
+
+Para conseguir passar por cima disso e garantir boa acurácia no conjunto de validação é necessário uma boa estratégia de machine learning.
+
+* **Conseguir boa acurácia no conjunto de validação utilizando dados do treinamento**: 
+
+Sabe-se que a diversidade é uma das coisas necessárias para garantir maior desempenho entre classificadores ensemble.
+Uma maneira perfeita de garantir essa diversidade seria agrupar classificadores que aprenderam as coisas de maneiras distintas.
+Pensando nisso, foi criado para essa solução um comitê de ensembles. Que no caso tem 3 níveis, conforme figura a seguir.
+![](./figures/arquitetura_def.jpg)
 
 
 ## Resultados
 
-Alguns dos principais resultados produzidos podem ser encontradas [aqui](https://github.com/jesimar/desafio-senai/tree/main/docs)
+A seguir temos os resultados alcançados. Chegou-se a uma acurácia de 73% no comitê de ensemble em cima dos dados de teste, usando dados do treinamento.
+* **Gráfico acurácia**:
+![](./docs/figures/acuracia.jpeg)
+
+* **Gráfico curvaroc**:
+![](./docs/figures/curvaroc.jpeg)
