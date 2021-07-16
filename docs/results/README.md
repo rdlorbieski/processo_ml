@@ -41,12 +41,14 @@ aplicacao-flask
 │   │	├── ...
 │   │	└── html 
 │   ├── images
-│   ├── source
-│   └── results 
+│   └── source
 │
 ├── repository
 │   └── repository_service.py  
 │
+├── test
+│   ├── __init__.py
+│   └── test_sample.py
 │
 ├── trained
 │   └── models
@@ -68,24 +70,10 @@ aplicacao-flask
 
 ## Como executar o projeto
 
-* **Com docker** -> Para gerar nova imagem: docker compose -f docker-compose.yml up --build
-* **Sem docker** : 
-1) Clone o repositório
-2) Se não tem instalado o virtualenv, fazer o comando pip install virtualenv
-3) Começe um ambiente virtual: virtualenv -p python3 venv
-4) Instale as dependências: pip install -r requirements.txt
-5) Va para a pasta src: cd algorithms/challenge_senai
-6) Rode o arquivo: python main.py
+Com docker: 
 
-Se desejar fazer tudo via chamada rest:
-Rode o arquivo (na raiz) app: python app.py
-A seguinte requisição (get) gera os datasets necessários para solução, além de treinar o modelo que vai prever y_train: localhost:5000/generate_datasets_parquet_and_model_to_predict_ytrain
-Outra requisição importante (get) gera os modelos de machine learning necessários para a solução: localhost:5000/generate_models_to_validate_solution.
-
-Maiores detalhes e outras opções de requisição estão na documentação da api (./docs/build/html/index.html):
-![](./docs/figures/mle_exam.jpg)
-
-
+Sem docker: 
+python ./src/code-ai.py
 
 
 ## O projeto tem documentação?

@@ -228,3 +228,19 @@ def save_dataframe_test(name, df_teste_real):
         return True
     except Exception as e:
         logger.log.debug("save_model exception:" + str(e))
+
+
+def ensemble_of_ensemble_exists():
+    """
+    check if file of ensemble already exists
+
+    :return: True in case of success or False in case of Fail
+
+    """
+    try:
+        filename = path_model + "models_to_evaluate" + os.path.sep + "level_2" + os.path.sep + "stacking_ensemble_of_ensemble.pkl"
+        check_exists = os.path.isfile(filename)
+        return check_exists
+    except Exception as e:
+        logger.log.debug("check error exception:" + str(e))
+        return None

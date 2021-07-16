@@ -292,7 +292,7 @@ def create_and_save_models(df_train_clean_normalized, df_test_real_normalized):
                 rs.save_model(models_levels_1[i], "models_to_evaluate", "level_1", names_level_1[i])
 
             print("======================= evaluating level 2")
-            if acc_2>0.73:
+            if acc_2>0.73 or not rs.ensemble_of_ensemble_exists():
                 rs.save_model(stacking, "models_to_evaluate", "level_2", "stacking_ensemble_of_ensemble")
             print("acc = ", acc_2, "auc = ", auc_level_2)
 
