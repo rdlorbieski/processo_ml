@@ -63,7 +63,7 @@ Pensando nisso, foi criado para essa solução um comitê de ensembles. Que no c
 
 A seguir temos os resultados alcançados. Chegou-se a uma acurácia de 73% no comitê de ensemble em cima dos dados de teste, usando dados do treinamento.
 * **Gráfico acurácia**:
-![](./docs/figures/acuracia.jpg)
+![](./figures/acuracia.png)
 
 * **Gráfico curvaroc**:
-![](./docs/figures/curvaroc.jpg)
+![](./figures/curvaroc.png)
