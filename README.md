@@ -84,7 +84,7 @@ A seguinte requisição (get) gera os datasets necessários para solução, alé
 Outra requisição importante (get) gera os modelos de machine learning necessários para a solução: localhost:5000/generate_models_to_validate_solution.
 
 Maiores detalhes e outras opções de requisição estão na documentação da api (./docs/build/html/index.html):
-![](./docs/images/mle_exam.png)
+![](./docs/images/mle.png)
 
 
 
