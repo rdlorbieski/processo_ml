@@ -13,7 +13,7 @@ Entre os diversos desafios, destaca-se as estratégias para rotulação do conju
 ## Pipeline da Solução
 
 A seguir temos um pipeline geral da solução para esse desafio.
-![](./docs/figures/pipeline.png)
+![](./docs/images/pipeline.png)
 
 ## Organização do Código
 
@@ -83,7 +83,7 @@ A seguinte requisição (get) gera os datasets necessários para solução, alé
 Outra requisição importante (get) gera os modelos de machine learning necessários para a solução: localhost:5000/generate_models_to_validate_solution.
 
 Maiores detalhes e outras opções de requisição estão na documentação da api (./docs/build/html/index.html):
-![](./docs/figures/mle_exam.jpg)
+![](./docs/images/mle_exam.jpg)
 
 
 
